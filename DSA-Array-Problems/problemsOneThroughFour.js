@@ -100,31 +100,47 @@ function main() {
   console.log(arr, 'Item 5'); // Length: 2, Capacity: 3, Memory address: 0
 
   arr.push(15);
-  console.log(arr, 'Item 15'); // Length: 3, Capacity: 3, Memory address: 0  
+  console.log(arr, 'Item 15'); // Length: 3, Capacity: 3, Memory address: 0
 
   arr.push(19);
-  console.log(arr, 'Item 19'); // Length: 4, Capacity: 12, Memory address: 3  
+  console.log(arr, 'Item 19'); // Length: 4, Capacity: 12, Memory address: 3
 
   arr.push(45);
-  console.log(arr, 'Item 45'); // Length: 5, Capacity: 12, Memory address: 3  
+  console.log(arr, 'Item 45'); // Length: 5, Capacity: 12, Memory address: 3
 
   arr.push(10);
-  console.log(arr, 'Item 10'); // Length: 6, Capacity: 12, Memory address: 3  
+  console.log(arr, 'Item 10'); // Length: 6, Capacity: 12, Memory address: 3
 
-/*************PROBLEM 3****************/
-// Exploring the pop method
+  /*************PROBLEM 3****************/
+  // Exploring the pop method
 
-arr.pop();
-console.log(arr);   // Length: 5, Capacity: 12, Memory address: 3  
+  arr.pop();
+  console.log(arr); // Length: 5, Capacity: 12, Memory address: 3
 
-arr.pop();
-console.log(arr);   // Length: 4, Capacity: 12, Memory address: 3  
+  arr.pop();
+  console.log(arr); // Length: 4, Capacity: 12, Memory address: 3
 
-arr.pop();
-console.log(arr);   // Length: 3, Capacity: 12, Memory address: 3  
+  arr.pop();
+  console.log(arr); // Length: 3, Capacity: 12, Memory address: 3
 
-// Using the Array's pop method, we popped off the last value in the array which resulted in a shortened length, same capacity, and same memory address
+  // Using the Array's pop method, we popped off the last value in the array which resulted in a shortened length, same capacity, and same memory address
 
+  /****************PROBLEM 4*************************/
+  // Print the 1st item in the array arr.
+  console.log(arr.get(0)); // gets '3'
+
+  // Empty the array and add just 1 item: arr.push("tauhida");
+  while (arr.length > 0) {
+    arr.pop();
+  }
+  arr.push('tauhida');
+
+  // Print this 1 item that you just added. What is the result? Can you explain your result?
+  console.log(arr.get(0), 'Array after inserting tauhida');
+  // Answer: NaN because the memory.set method is looking for a number not a string
+
+  // What is the purpose of the _resize() function in your Array class?
+  // Answer: The purpose of the _resize() function in the Array class is to resize the array so that there is available space for the new item using the _resize method
 }
 
 main();
