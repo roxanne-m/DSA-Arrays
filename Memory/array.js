@@ -97,3 +97,5 @@ remove(index){
     this.length--;
 }
 }
+
+Array.SIZE_RATIO = 3;
