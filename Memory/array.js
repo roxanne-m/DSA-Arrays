@@ -1,38 +1,45 @@
-import memory from './memory';
+const Memory = require('./memory');
 
 class Array {
   constructor() {
     this.length = 0;
     this._capacity = 0; //how many items you can hold without needing to resize
-    this.ptr = memory.allocate(this.length);
+    this.ptr = Memory.allocate(this.length);
   }
 
-//   If the length is greater than the capacity, then you resize according to the SIZE_RATIO
+// Push method: resizes the array, then increases the length, and set a single memory address.
+// If the length is greater than the capacity, then you resize according to the SIZE_RATIO
 // Meaning, each time you go over the capacity, you triple the size of memory which is allocated
 // Best case scenario: Don't need to resize, this is a O(1) operation.
 // Worst case scenario: Need to resize, this is a O(n) operation.
   push(value) {
     if (this.length >= this._capacity) {
+      //resize array so there is space for the new item using the _resize method
       this._resize((this.length + 1) * Array.SIZE_RATIO);
     }
 
-    memory.set(this.ptr + this.length, value);
+    // set the memory at this.ptr + length to be equal to the value
+    Memory.set(this.ptr + this.length, value);
     this.length++;
   }
 
-//   Have to copy each item of data to a new box each time you resize the array. 
+
+
+//  Have to copy each item of data to a new box each time you resize the array. 
 // Resize operation has a worst, best, and average case of O(n).
 // This copies any existing values from the old to new memory and frees the old chunk of memory.
   _resize(size) {
     const oldPtr = this.ptr;
-    this.ptr = memory.allocate(size);
+    this.ptr = Memory.allocate(size);
     if (this.ptr === null) {
       throw new Error('Out of memory');
     }
-    memory.copy(this.ptr, oldPtr, this.length);
-    memory.free(oldPtr);
+    Memory.copy(this.ptr, oldPtr, this.length);
+    Memory.free(oldPtr);
     this._capacity = size;
   }
+
+
 
 // Retrieving values
 // Adds an index offset and gets the value stored at a memory address.
@@ -41,7 +48,7 @@ class Array {
       if(index < 0 || index >= this.length){
           throw new Error('Index error');
       }
-      return memory.get(this.ptr + index);
+      return Memory.get(this.ptr + index);
   }
 
 
@@ -52,7 +59,7 @@ pop(){
     if(this.length === 0){
         throw new Error('Index error');
     }
-    const value = memory.get(this.ptr + this.length - 1);
+    const value = Memory.get(this.ptr + this.length - 1);
     this.length--;
     return value;
 }
@@ -72,8 +79,8 @@ insert(index, value){
         this._resize((this.length + 1) * Array.SIZE_RATIO);
     }
 
-    memory.copy(this.ptr + index + 1, this.ptr + index, this.length - index);
-    memory.set(this.ptr + index, value);
+    Memory.copy(this.ptr + index + 1, this.ptr + index, this.length - index);
+    Memory.set(this.ptr + index, value);
     this.length++;
 }
 
@@ -86,7 +93,7 @@ remove(index){
     if(index < 0 || index >= this.length){
         throw new Error('Index error');
     }
-    memory.copy(this.ptr + index, this.ptr + index + 1, this.length - index - 1);
+    Memory.copy(this.ptr + index, this.ptr + index + 1, this.length - index - 1);
     this.length--;
 }
 }
