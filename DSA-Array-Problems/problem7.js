@@ -31,6 +31,8 @@ function maxSum(array) {
 
 console.log(maxSum([4, 6, -3, 5, -2, 1]));
 
+// This is O(n)
+
 /*
 look for all positive contiguous segments of the array (max_ending_here is used for this). 
 And keep track of maximum sum contiguous segment among all positive segments (max_so_far is used for this). 
