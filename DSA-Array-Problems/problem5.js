@@ -38,3 +38,5 @@ const URLify = function (url) {
 
 console.log(URLify('tauhida parveen'));
 console.log(URLify('www.thinkful.com /tauh ida parv een'));
+
+// This function is Linear Time O(n)
